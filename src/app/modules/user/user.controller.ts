@@ -11,8 +11,8 @@ const registerUser = async (req: Request, res: Response) => {
       success: true,
       data: result,
     });
-  } catch (err) {
-    console.log(err);
+  } catch (err: any) {
+    console.log(err)
     res.json({
       message: err?.message || "Failed to create user",
       success: false,
