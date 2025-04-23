@@ -6,5 +6,6 @@ const router = Router();
 
 router.post("/create-job", auth(), jobControllers.createJob);
 router.delete("/:jobId", auth(), jobControllers.deleteJob);
+router.get("/:jobId", auth(), jobControllers.getJob);
 router.get("/view-jobs", auth(), jobControllers.getAllJob);
 export const JobsRoutes = router;

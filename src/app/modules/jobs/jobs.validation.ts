@@ -7,4 +7,6 @@ export const jobValidationSchema = z.object({
   }),
   description: z.string({ required_error: "Must give a description" }).min(10),
   postedBy: z.string({ required_error: "Must include the poster ID" }),
+  department: z.string({ required_error: "Must include the Department" }),
+  designation: z.string({ required_error: "Must include the Designation" }),
 });

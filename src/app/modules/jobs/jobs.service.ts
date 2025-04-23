@@ -31,9 +31,15 @@ const updateJob = async (id: string, updatedData: Partial<IJob>) => {
   return result;
 };
 
+const getJob = async (id: string) => {
+  const result = await Job.findById(id);
+  return result;
+};
+
 export const jobServices = {
   createJobs,
   deleteJob,
   getAllJobs,
   updateJob,
+  getJob,
 };

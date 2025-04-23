@@ -26,7 +26,7 @@ const createJob = async (req: Request, res: Response) => {
 const deleteJob = async (req: Request, res: Response) => {
   try {
     const { jobId } = req.params;
-    const result = await jobServices.deleteJob(jobId ,req.userId);
+    const result = await jobServices.deleteJob(jobId, req.userId);
     res.json({
       message: "Job deleted successfully",
       success: true,
@@ -62,8 +62,30 @@ const getAllJob = async (req: Request, res: Response) => {
   }
 };
 
+const getJob = async (req: Request, res: Response) => {
+  try {
+    const { jobId } = req.params;
+
+    const result = await jobServices.getJob(jobId);
+    res.json({
+      message: "Job retrieved successfully",
+      success: true,
+      data: result,
+    });
+  } catch (err: any) {
+    console.log(err);
+    res.json({
+      message: err?.message || "Failed to retrieved job",
+      success: false,
+      error: err,
+      stack: err?.stack,
+    });
+  }
+};
+
 export const jobControllers = {
   createJob,
   deleteJob,
   getAllJob,
+  getJob,
 };
