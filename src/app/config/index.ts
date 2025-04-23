@@ -8,4 +8,6 @@ export default {
   port: process.env.PORT,
   db_url: process.env.DB_URL,
   salt_round: process.env.SALT_ROUNDS,
+  jwt_secret: process.env.JWT_SECRET,
+  jwt_expireTime: process.env.JWT_Expire,
 };

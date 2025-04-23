@@ -1,6 +1,8 @@
 import bcrypt from "bcrypt";
-import { ILogin } from "./auth.interface";
+import { IJWTPayload, ILogin } from "./auth.interface";
 import userModel from "../user/user.model";
+import { createToken, verifyToken } from "./auth.utils";
+import config from "../../config";
 
 const loginUser = async (userInfo: ILogin) => {
   const isUserExist = await userModel.findOne({ email: userInfo.email });
@@ -15,7 +17,20 @@ const loginUser = async (userInfo: ILogin) => {
     throw new Error("Password did not match");
   }
 
-  return isUserExist;
+  const payload: IJWTPayload = {
+    email: userInfo.email,
+  };
+
+  const accessToken = createToken(
+    payload,
+    config.jwt_secret!,
+    parseInt(config.jwt_expireTime!)
+  );
+
+
+  const result = verifyToken(accessToken,config.jwt_secret!)
+  console.log(result);
+  return accessToken;
 };
 
 export const authServices = {
