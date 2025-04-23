@@ -1,11 +1,11 @@
 import bcrypt from "bcrypt";
 import { IJWTPayload, ILogin } from "./auth.interface";
-import userModel from "../user/user.model";
-import { createToken, verifyToken } from "./auth.utils";
+import { createToken } from "./auth.utils";
 import config from "../../config";
+import User from "../user/user.model";
 
 const loginUser = async (userInfo: ILogin) => {
-  const isUserExist = await userModel.findOne({ email: userInfo.email });
+  const isUserExist = await User.findOne({ email: userInfo.email });
   if (!isUserExist) {
     throw new Error("User dose not exists!");
   }
@@ -19,6 +19,7 @@ const loginUser = async (userInfo: ILogin) => {
 
   const payload: IJWTPayload = {
     email: userInfo.email,
+    userId: isUserExist?._id,
   };
 
   const accessToken = createToken(
@@ -27,9 +28,6 @@ const loginUser = async (userInfo: ILogin) => {
     parseInt(config.jwt_expireTime!)
   );
 
-
-  const result = verifyToken(accessToken,config.jwt_secret!)
-  console.log(result);
   return accessToken;
 };
 

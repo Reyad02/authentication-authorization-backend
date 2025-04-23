@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import { IUser } from "./user.interface";
 
 const UserSchema: Schema = new Schema({
@@ -9,4 +9,5 @@ const UserSchema: Schema = new Schema({
   timestamps: true
 });
 
-export default mongoose.model<IUser>("User", UserSchema);
+const User = mongoose.model<IUser>('User', UserSchema);
+export default User;
