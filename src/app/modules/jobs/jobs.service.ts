@@ -15,7 +15,7 @@ const deleteJob = async (id: string, authorId: JwtPayload) => {
   }
 
   if (selectedJob.postedBy.toString() !== requestUserId.toString()) {
-    throw new Error("This job is not created by you.");
+    throw new Error("This job is not created by you. So you can't delete it");
   }
   const result = await Job.findByIdAndDelete(id, { new: true });
   return result;
